@@ -25,3 +25,22 @@
  * 
  * POST E PUT PRECISAM DO BodyParserJson para funcionar
  **********************************************************************************************************************/
+
+ const express   = require('express')
+ const cors      = require('cors')
+ const bodyParser = require('body-parser')
+
+
+ // Estabelecendo o formato de dados que deverá chegar no BODY da requisição (POST ou PUT)
+const bodyParserJson = bodyParser.json()
+
+// Cria o objeto app para criar a api
+const app = express()
+
+app.use((request, response, next) =>{
+    response.header('Access-Control-Allow-Origin', '*')
+    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+
+    app.use(cors())
+    next()
+})
