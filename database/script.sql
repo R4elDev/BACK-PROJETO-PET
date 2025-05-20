@@ -8,6 +8,7 @@ CREATE TABLE tbl_cadastro_tutor(
     email VARCHAR(150) not null,
     endereco VARCHAR(200) not null,
     cnpj VARCHAR(45) not null,
+    senha VARCHAR(45) not null,
     data_nascimento DATE not null
 );
 
