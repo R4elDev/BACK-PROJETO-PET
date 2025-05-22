@@ -1,4 +1,5 @@
 CREATE DATABASE db_projeto_adocao_pets_bb;
+show databases;
 
 use db_projeto_adocao_pets_bb;
 

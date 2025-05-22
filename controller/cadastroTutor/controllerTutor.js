@@ -22,7 +22,7 @@ const inserirTutor = async function (tutor, contentType) {
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
-                let resultTutor = await cadastroTutorDAO.insertTutor(jogo)
+                let resultTutor = await cadastroTutorDAO.insertTutor(tutor)
                 if(resultTutor){
                     return MESSAGE.SUCCESS_CREATED_ITEM
                 }else{
@@ -33,13 +33,14 @@ const inserirTutor = async function (tutor, contentType) {
             return MESSAGE.ERROR_CONTENT_TYPE
         }
     }catch(error){
+        console.log(error)
         return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
 
 const atualizarTutor = async function(tutor,id,contentType){
     try{
-        if(contentType == 'application/jsom'){
+        if(contentType == 'application/json'){
             if(
                 id              == undefined || id             == '' || id             == null || isNaN(id) || id      <= 0   ||
                 tutor.nome      == undefined || tutor.nome     == '' || tutor.nome     == null || tutor.nome.length     > 100 ||
@@ -132,7 +133,7 @@ const listarTutor = async function(){
 
 const buscarTutor = async function(id){
     try{
-        let arrayTutores = []
+        
         let idTutor = id
 
         if(id == '' || id == undefined || id == null || id == isNaN(id || id <= 0)){
@@ -146,7 +147,7 @@ const buscarTutor = async function(id){
                 if(resultTutor.length > 0){
                     dadosTutores.status = true
                     dadosTutores.status_code = 200
-                    dadosTutores.tutores = arrayTutores
+                    dadosTutores.tutores = resultTutor
 
                     return dadosTutores
                 }else{

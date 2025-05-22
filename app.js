@@ -30,6 +30,9 @@
  const cors      = require('cors')
  const bodyParser = require('body-parser')
 
+ // Import das controllers 
+const controllerTutor = require('./controller/cadastroTutor/controllerTutor.js')
+
 
  // Estabelecendo o formato de dados que deverá chegar no BODY da requisição (POST ou PUT)
 const bodyParserJson = bodyParser.json()
@@ -44,3 +47,63 @@ app.use((request, response, next) =>{
     app.use(cors())
     next()
 })
+
+// ********************** ENDPOINTS DA TABELA CADASTRO_TUTOR ***************************** //
+
+app.post('/v1/controle-pet/tutor',cors(),bodyParserJson,async function(request,response){
+
+    let contentType = request.headers['content-type']
+
+    let dadosBody = request.body
+
+    let resultTutor = await controllerTutor.inserirTutor(dadosBody,contentType)
+
+    response.status(resultTutor.status_code)
+    response.json(resultTutor)
+})
+
+app.get('/v1/controle-pet/tutor',cors(),bodyParserJson,async function(request,response){
+    let resultTutor = await controllerTutor.listarTutor()
+
+    response.status(resultTutor.status_code)
+    response.json(resultTutor)
+})
+
+app.get('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
+    let idTutor = request.params.id
+
+    let resultTutor = await controllerTutor.buscarTutor(idTutor)
+
+    response.status(resultTutor.status_code)
+    response.json(resultTutor)
+})
+
+app.delete('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
+    let idTutor = request.params.id
+
+    let resultTutor = await controllerTutor.excluirTutor(idTutor)
+
+    response.status(resultTutor.status_code)
+    response.json(resultTutor)
+})
+
+app.put('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
+    let contentType = request.headers['content-type']
+
+    let idTutor = request.params.id
+
+    let dadosBody = request.body
+
+    let resultTutor = await controllerTutor.atualizarTutor(dadosBody,idTutor,contentType)
+
+    response.status(resultTutor.status_code)
+    response.json(resultTutor)
+})
+
+
+app.listen('3030',function(){
+    console.log('API FUNCIONANDO AGUARDANDO REQUESIÇÕES CHEFE...')
+})
+
+
+
