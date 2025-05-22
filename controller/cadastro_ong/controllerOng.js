@@ -13,10 +13,10 @@ const inserirOng = async function (ong, contentType) {
     try{
         if(contentType == 'application/json'){
             if(
-            ong.nome      == undefined || ong.nome     == '' || ong.nome     == null || ong.nome.length     > 100 ||
-            ong.email     == undefined || ong.email    == '' || ong.email    == null || ong.email.length    > 150 ||
-            ong.regiao  == undefined || ong.endereco == '' || ong.endereco == null || ong.endereco.length > 100 ||
-            ong.endereco      == undefined || ong.cnpj     == '' || ong.cnpj     == null || ong.cnpj.length     > 200
+            ong.nome      == undefined || ong.nome     == '' || ong.nome     == null || ong.nome.length         > 100 ||
+            ong.email     == undefined || ong.email    == '' || ong.email    == null || ong.email.length        > 150 ||
+            ong.regiao    == undefined || ong.regiao   == '' || ong.regiao   == null || ong.regiao.length       > 100 ||
+            ong.endereco  == undefined || ong.endereco == '' || ong.endereco == null || ong.endereco.length     > 200
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
@@ -36,15 +36,15 @@ const inserirOng = async function (ong, contentType) {
     }
 }
 
-const atualizarong = async function(ong,id,contentType){
+const atualizarOng = async function(ong,id,contentType){
     try{
         if(contentType == 'application/json'){
             if(
-                id              == undefined || id             == '' || id             == null || isNaN(id) || id      <= 0   ||
-                ong.nome      == undefined || ong.nome     == '' || ong.nome     == null || ong.nome.length     > 100 ||
-                ong.email     == undefined || ong.email    == '' || ong.email    == null || ong.email.length    > 150 ||
-                ong.regiao  == undefined || ong.endereco == '' || ong.endereco == null || ong.endereco.length > 100 ||
-                ong.endereco      == undefined || ong.cnpj     == '' || ong.cnpj     == null || ong.cnpj.length     > 200
+                id              == undefined || id              == '' || id             == null || isNaN(id) || id         <= 0   ||
+                ong.nome        == undefined || ong.nome        == '' || ong.nome       == null || ong.nome.length         > 100  ||
+                ong.email       == undefined || ong.email       == '' || ong.email      == null || ong.email.length        > 150  ||
+                ong.regiao      == undefined || ong.regiao      == '' || ong.regiao     == null || ong.regiao.length       > 100  ||
+                ong.endereco    == undefined || ong.endereco    == '' || ong.endereco   == null || ong.endereco.length     > 200
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
@@ -108,7 +108,7 @@ const listarOng = async function(){
         let resultOng = await cadastroOngDAO.selectAllOng()
 
         if(resultOng != false || typeof(resultOng) == 'object'){
-            if(resultTutores.length > 0){
+            if(resultOng.length > 0){
                 dadosOng.status = true
                 dadosOng.status_code = 200
                 dadosOng.items = resultOng.length
@@ -122,6 +122,7 @@ const listarOng = async function(){
             return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
         }
     }catch(error){
+        console.log(error)
         return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
@@ -160,7 +161,7 @@ const buscarOng = async function(id){
 
 module.exports = {
     inserirOng,
-    atualizarong,
+    atualizarOng,
     buscarOng,
     excluirOng,
     listarOng

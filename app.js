@@ -32,6 +32,7 @@
 
  // Import das controllers 
 const controllerTutor = require('./controller/cadastroTutor/controllerTutor.js')
+const controllerOng = require('./controller/cadastro_ong/controllerOng.js')
 
 
  // Estabelecendo o formato de dados que deverá chegar no BODY da requisição (POST ou PUT)
@@ -100,6 +101,58 @@ app.put('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(reques
     response.json(resultTutor)
 })
 
+
+// ********************** ENDPOINTS DA TABELA CADASTRO_ONG ***************************** //
+
+app.post('/v1/controle-pet/ong',cors(),bodyParserJson,async function(request,response){
+
+    let contentType = request.headers['content-type']
+
+    let dadosBody = request.body
+
+    let resultOng = await controllerOng.inserirOng(dadosBody,contentType)
+
+    response.status(resultOng.status_code)
+    response.json(resultOng)
+})
+
+app.get('/v1/controle-pet/ong',cors(),bodyParserJson,async function(request,response){
+    let resultOng = await controllerOng.listarOng()
+
+    response.status(resultOng.status_code)
+    response.json(resultOng)
+})
+
+app.get('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
+    let idOng = request.params.id
+
+    let resultOng = await controllerOng.buscarOng(idOng)
+
+    response.status(resultOng.status_code)
+    response.json(resultOng)
+})
+
+app.delete('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
+    let idOng = request.params.id
+
+    let resultOng = await controllerOng.excluirOng(idOng)
+
+    response.status(resultOng.status_code)
+    response.json(resultOng)
+})
+
+app.put('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
+    let contentType = request.headers['content-type']
+
+    let idOng = request.params.id
+
+    let dadosBody = request.body
+
+    let resultOng = await controllerOng.atualizarOng(dadosBody,idOng,contentType)
+
+    response.status(resultOng.status_code)
+    response.json(resultOng)
+})
 
 app.listen('3030',function(){
     console.log('API FUNCIONANDO AGUARDANDO REQUESIÇÕES CHEFE...')
