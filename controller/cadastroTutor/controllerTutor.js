@@ -7,7 +7,7 @@
 
 const MESSAGE = require('../../modulo/config.js')
 
-const cadastroTutorDAO = require('../../model/DAO/cadastro_tutor.js')
+const cadastroTutorDAO = require('../../model/DAO/cadastro_usuario.js')
 
 const inserirTutor = async function (tutor, contentType) {
     try{
