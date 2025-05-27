@@ -31,7 +31,7 @@
  const bodyParser = require('body-parser')
 
  // Import das controllers 
-const controllerTutor = require('./controller/cadastroTutor/controllerTutor.js')
+const controllerUsuario = require('./controller/cadastroUsuario/controllerUsuario.js')
 const controllerCategoria = require('./controller/categoria/controllerCategoria.js')
 
 
@@ -49,60 +49,60 @@ app.use((request, response, next) =>{
     next()
 })
 
-// ********************** ENDPOINTS DA TABELA CADASTRO_TUTOR ***************************** //
+// ********************** ENDPOINTS DA TABELA CADASTRO_USUARIO ***************************** //
 
-app.post('/v1/controle-pet/tutor',cors(),bodyParserJson,async function(request,response){
+app.post('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request,response){
 
     let contentType = request.headers['content-type']
 
     let dadosBody = request.body
 
-    let resultTutor = await controllerTutor.inserirTutor(dadosBody,contentType)
+    let resultUsuario = await controllerUsuario.inserirUsuario(dadosBody,contentType)
 
-    response.status(resultTutor.status_code)
-    response.json(resultTutor)
+    response.status(resultUsuario.status_code)
+    response.json(resultUsuario)
 })
 
-app.get('/v1/controle-pet/tutor',cors(),bodyParserJson,async function(request,response){
-    let resultTutor = await controllerTutor.listarTutor()
+app.get('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request,response){
+    let resultUsuario = await controllerUsuario.listarUsuario()
 
-    response.status(resultTutor.status_code)
-    response.json(resultTutor)
+    response.status(resultUsuario.status_code)
+    response.json(resultUsuario)
 })
 
-app.get('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
-    let idTutor = request.params.id
+app.get('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
+    let idUsuario = request.params.id
 
-    let resultTutor = await controllerTutor.buscarTutor(idTutor)
+    let resultUsuario = await controllerUsuario.buscarUsuario(idUsuario)
 
-    response.status(resultTutor.status_code)
-    response.json(resultTutor)
+    response.status(resultUsuario.status_code)
+    response.json(resultUsuario)
 })
 
-app.delete('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
-    let idTutor = request.params.id
+app.delete('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
+    let idUsuario = request.params.id
 
-    let resultTutor = await controllerTutor.excluirTutor(idTutor)
+    let resultUsuario = await controllerUsuario.excluirUsuario(idUsuario)
 
-    response.status(resultTutor.status_code)
-    response.json(resultTutor)
+    response.status(resultUsuario.status_code)
+    response.json(resultUsuario)
 })
 
-app.put('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(request,response){
+app.put('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
     let contentType = request.headers['content-type']
 
-    let idTutor = request.params.id
+    let idUsuario = request.params.id
 
     let dadosBody = request.body
 
-    let resultTutor = await controllerTutor.atualizarTutor(dadosBody,idTutor,contentType)
+    let resultUsuario = await controllerUsuario.atualizarUsuario(dadosBody,idUsuario,contentType)
 
-    response.status(resultTutor.status_code)
-    response.json(resultTutor)
+    response.status(resultUsuario.status_code)
+    response.json(resultUsuario)
 })
 
 
-// ********************** ENDPOINTS DA TABELA CADASTRO_ONG ***************************** //
+// ********************** ENDPOINTS DA TABELA CATEGORIA ***************************** //
 
 app.post('/v1/controle-pet/categoria',cors(),bodyParserJson,async function(request,response){
 

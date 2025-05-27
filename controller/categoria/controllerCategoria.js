@@ -138,7 +138,7 @@ const buscarCategoria = async function(id){
                 if(resultCategoria.length > 0){
                     dadosCategoria.status = true
                     dadosCategoria.status_code = 200
-                    dadosCategoria.categorias = resultCategoria
+                    dadosCategoria.categoria = resultCategoria
 
                     return dadosCategoria
                 }else{

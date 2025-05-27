@@ -13,11 +13,12 @@ const prisma = new PrismaClient()
 // Função para inserir um tutor no banco de dados
 const insertUsuario = async function (usuario){
     try{
+        
         let sql = `INSERT INTO tbl_cadastro_usuario(nome,id_categoria,email,endereco,cnpj,senha,data_nascimento,cpf)
     values(
         '${usuario.nome}',
         '${usuario.id_categoria}',
-        '${usuario.email}'
+        '${usuario.email}',
         '${usuario.endereco}',
         '${usuario.cnpj}',
         '${usuario.senha}',
@@ -28,7 +29,7 @@ const insertUsuario = async function (usuario){
         let result = await prisma.$executeRawUnsafe(sql)
 
         if(result){
-            let sqlSelect = `SELECT * FROM tbl_cadastro_usuarios WHERE nome = '${usuario.email}' ORDER BY id DESC LIMIT 1`
+            let sqlSelect = `SELECT * FROM tbl_cadastro_usuario WHERE email = '${usuario.email}' ORDER BY id DESC LIMIT 1`
 
             let scriptCriado = await prisma.$queryRawUnsafe(sqlSelect)
             return scriptCriado[0]
@@ -36,6 +37,7 @@ const insertUsuario = async function (usuario){
             return false
         }
     }catch (error){
+        console.log(error)
         return false
     }
 }
