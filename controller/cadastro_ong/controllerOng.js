@@ -7,7 +7,7 @@
 
 const MESSAGE = require('../../modulo/config.js')
 
-const cadastroOngDAO = require('../../model/DAO/cadastro_ong.js')
+const cadastroOngDAO = require('../../model/DAO/categoria.js')
 
 const inserirOng = async function (ong, contentType) {
     try{
