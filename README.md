@@ -40,42 +40,44 @@ Observação: Os métodos POST e PUT exigem o uso de bodyParser.json() para que 
 ## 🔗 Base URL -->  /v1/controle-pet
 
 
-## 👤 Endpoints - Cadastro de Tutor
+## 👤 Endpoints - Cadastro de Usuario
 
 | Método | Endpoint     | Descrição                 |
 | ------ | ------------ | ------------------------- |
-| POST   | `/tutor`     | Cadastrar um novo tutor   |
-| GET    | `/tutor`     | Listar todos os tutores   |
-| GET    | `/tutor/:id` | Buscar um tutor por ID    |
-| PUT    | `/tutor/:id` | Atualizar um tutor por ID |
-| DELETE | `/tutor/:id` | Remover um tutor por ID   |
+| POST   | `/usuario`     | Cadastrar um novo usuario   |
+| GET    | `/usuario`     | Listar todos os usuarios   |
+| GET    | `/usuario/:id` | Buscar um usuario por ID    |
+| PUT    | `/usuario/:id` | Atualizar um usuario por ID |
+| DELETE | `/usuario/:id` | Remover um usuario por ID   |
 
 
 ### 📥 Exemplo de Payload para POST/PUT
 { <br>
-  "nome": "João da Silva", <br>
-  "email": "joao@email.com", <br>
-  "telefone": "(11) 99999-9999" <br>
+    "nome": "Israel Junior", <br>
+    "id_categoria": 1, <br>
+    "email": "raraeldev@gmail.com", <br>
+    "endereco": "rua andorra 472", <br>
+    "cnpj": "", <br>
+    "senha": "rael123", <br>
+    "data_nascimento": "2007-06-13", <br>
+    "cpf": "396.336.902-07" <br>
 }
 
 
-## 🏢 Endpoints - Cadastro de ONG
+## 🏢 Endpoints - Cadastro de categoria
 | Método | Endpoint   | Descrição                |
 | ------ | ---------- | ------------------------ |
-| POST   | `/ong`     | Cadastrar uma nova ONG   |
-| GET    | `/ong`     | Listar todas as ONGs     |
-| GET    | `/ong/:id` | Buscar uma ONG por ID    |
-| PUT    | `/ong/:id` | Atualizar uma ONG por ID |
-| DELETE | `/ong/:id` | Remover uma ONG por ID   |
+| POST   | `/categoria`     | Cadastrar uma nova categoria   |
+| GET    | `/categoria`     | Listar todas as categorias     |
+| GET    | `/categoria/:id` | Buscar uma categoria por ID    |
+| PUT    | `/categoria/:id` | Atualizar uma categoria por ID |
+| DELETE | `/categoria/:id` | Remover uma categoria por ID   |
 
 
 ### 📥 Exemplo de Payload para POST/PUT
 
 { <br>
-  "nome": "ONG Amigos dos Animais", <br>
-  "email": "contato@amigosanimais.org", <br>
-  "telefone": "(21) 88888-8888", <br>
-  "endereco": "Rua dos Bichos, 123" <br>
+  "nome_categoria": "TUTOR", <br>
 } <br>
 
 # 📋 Considerações Finais
