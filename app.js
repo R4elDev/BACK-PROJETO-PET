@@ -32,7 +32,7 @@
 
  // Import das controllers 
 const controllerTutor = require('./controller/cadastroTutor/controllerTutor.js')
-const controllerOng = require('./controller/cadastro_ong/controllerOng.js')
+const controllerCategoria = require('./controller/categoria/controllerCategoria.js')
 
 
  // Estabelecendo o formato de dados que deverá chegar no BODY da requisição (POST ou PUT)
@@ -104,54 +104,54 @@ app.put('/v1/controle-pet/tutor/:id',cors(),bodyParserJson,async function(reques
 
 // ********************** ENDPOINTS DA TABELA CADASTRO_ONG ***************************** //
 
-app.post('/v1/controle-pet/ong',cors(),bodyParserJson,async function(request,response){
+app.post('/v1/controle-pet/categoria',cors(),bodyParserJson,async function(request,response){
 
     let contentType = request.headers['content-type']
 
     let dadosBody = request.body
 
-    let resultOng = await controllerOng.inserirOng(dadosBody,contentType)
+    let resultCategoria = await controllerCategoria.inserirCategoria(dadosBody,contentType)
 
-    response.status(resultOng.status_code)
-    response.json(resultOng)
+    response.status(resultCategoria.status_code)
+    response.json(resultCategoria)
 })
 
-app.get('/v1/controle-pet/ong',cors(),bodyParserJson,async function(request,response){
-    let resultOng = await controllerOng.listarOng()
+app.get('/v1/controle-pet/categoria',cors(),bodyParserJson,async function(request,response){
+    let resultCategoria = await controllerCategoria.listarCategoria()
 
-    response.status(resultOng.status_code)
-    response.json(resultOng)
+    response.status(resultCategoria.status_code)
+    response.json(resultCategoria)
 })
 
-app.get('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
-    let idOng = request.params.id
+app.get('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
+    let idCategoria = request.params.id
 
-    let resultOng = await controllerOng.buscarOng(idOng)
+    let resultCategoria = await controllerCategoria.buscarCategoria(idCategoria)
 
-    response.status(resultOng.status_code)
-    response.json(resultOng)
+    response.status(resultCategoria.status_code)
+    response.json(resultCategoria)
 })
 
-app.delete('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
-    let idOng = request.params.id
+app.delete('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
+    let idCategoria = request.params.id
 
-    let resultOng = await controllerOng.excluirOng(idOng)
+    let resultCategoria = await controllerCategoria.excluirCategoria(idCategoria)
 
-    response.status(resultOng.status_code)
-    response.json(resultOng)
+    response.status(resultCategoria.status_code)
+    response.json(resultCategoria)
 })
 
-app.put('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,response){
+app.put('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
     let contentType = request.headers['content-type']
 
-    let idOng = request.params.id
+    let idCategoria = request.params.id
 
     let dadosBody = request.body
 
-    let resultOng = await controllerOng.atualizarOng(dadosBody,idOng,contentType)
+    let resultCategoria = await controllerCategoria.atualizarCategoria(dadosBody,idCategoria,contentType)
 
-    response.status(resultOng.status_code)
-    response.json(resultOng)
+    response.status(resultCategoria.status_code)
+    response.json(resultCategoria)
 })
 
 app.listen('8080',function(){
