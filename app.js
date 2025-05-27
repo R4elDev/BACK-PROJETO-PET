@@ -154,7 +154,7 @@ app.put('/v1/controle-pet/ong/:id',cors(),bodyParserJson,async function(request,
     response.json(resultOng)
 })
 
-app.listen('3030',function(){
+app.listen('8080',function(){
     console.log('API FUNCIONANDO AGUARDANDO REQUESIÇÕES CHEFE...')
 })
 
