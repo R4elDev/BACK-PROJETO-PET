@@ -19,7 +19,7 @@ const inserirUsuario = async function (usuario, contentType) {
             usuario.nome             == undefined || usuario.nome                             == '' || usuario.nome     == null || usuario.nome.length     > 100 ||
             usuario.id_categoria     == undefined || usuario.id_categoria                     == '' ||
             usuario.email            == undefined || usuario.email                            == '' || usuario.email    == null || usuario.email.length    > 150 ||
-            usuario.endereco         == undefined || usuario.endereco                         == '' || usuario.endereco == null || usuario.endereco.length > 200 ||
+            usuario.endereco         == undefined || usuario.endereco.length > 200 ||
             usuario.cnpj             == undefined ||  usuario.cnpj.length            > 100 ||
             usuario.senha            == undefined || usuario.senha                            == '' || usuario.senha    == null || usuario.senha.length    > 100 ||
             usuario.data_nascimento  == undefined ||  usuario.data_nascimento.length > 100 ||
@@ -27,6 +27,11 @@ const inserirUsuario = async function (usuario, contentType) {
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
+
+                if(usuario.data_nascimento == ''){
+                    usuario.data_nascimento = null
+                }
+
                 let resultUsuario = await cadastroUsuarioDAO.insertUsuario(usuario)
                 if(resultUsuario){
                     return MESSAGE.SUCCESS_CREATED_ITEM
@@ -108,6 +113,7 @@ const excluirUsuario = async function (id){
             }
         }
     }catch(error){
+        console.log(error)
         return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
@@ -144,9 +150,11 @@ const listarUsuario = async function(){
                 return MESSAGE.ERROR_NOT_FOUND
             }
         }else{
+            
             return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
         }
     }catch(error){
+        
         return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

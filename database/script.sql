@@ -23,6 +23,14 @@ CREATE TABLE tbl_categoria(
 
 );
 
+
+
+
+
+DELETE FROM tbl_cadastro_usuario WHERE id= 12;
+
+INSERT INTO tbl_cadastro_usuario
+
 SELECT * FROM tbl_cadastro_usuario;
 
 show tables;

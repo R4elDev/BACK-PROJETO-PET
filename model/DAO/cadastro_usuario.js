@@ -22,7 +22,7 @@ const insertUsuario = async function (usuario){
         '${usuario.endereco}',
         '${usuario.cnpj}',
         '${usuario.senha}',
-        '${usuario.data_nascimento}',
+        ${usuario.data_nascimento},
         '${usuario.cpf}'
     );`
 
@@ -37,7 +37,7 @@ const insertUsuario = async function (usuario){
             return false
         }
     }catch (error){
-        console.log(error)
+        
         return false
     }
 }
@@ -97,6 +97,7 @@ const selectAllUsuario = async function (){
         }
 
     }catch(error){
+        console.log(error)
         return false
     }
 }
