@@ -63,6 +63,19 @@ app.post('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request
     response.json(resultUsuario)
 })
 
+// ENDPOINT DE LOGIN USUARIO
+
+app.post('/v1/controle-pet/login', cors(),bodyParserJson, async function(request,response) {
+    let contentType = request.headers['content-type']
+    let { email , senha} = request.body
+    
+
+    let result = await controllerUsuario.loginUsuario(email,senha,contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
 app.get('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request,response){
     let resultUsuario = await controllerUsuario.listarUsuario()
 

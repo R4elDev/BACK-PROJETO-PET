@@ -195,10 +195,46 @@ const buscarUsuario = async function(id){
     }
 }
 
+const loginUsuario = async function(email,senha,contentType){
+    try{
+        
+        if(contentType == 'application/json'){
+            if(
+                email  == undefined || email        == '' || email    == null || email.length    > 150 ||
+                senha  == undefined || senha        == '' || senha    == null || senha.length    >  45
+            ){
+                return MESSAGE.ERROR_REQUIRED_FIELDS
+            }else{
+                let resultUsuario = await cadastroUsuarioDAO.selectLoginUsuario(email)
+    
+                if(!resultUsuario || resultUsuario.senha !== senha){
+                    return MESSAGE.WRONG_FIELDS
+                }else{
+                    return{
+                        status: true,
+                        status_code: 200,
+                        message: 'Login realizado com sucesso!',
+                        usuario: {
+                            id: resultUsuario.id,
+                            nome: resultUsuario.nome,
+                            email: resultUsuario.email
+                        }
+                    }
+                }
+            }
+        }else{
+            return MESSAGE.ERROR_CONTENT_TYPE
+        }
+    }catch(error){
+        return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
+    }
+}
+
 module.exports = {
     inserirUsuario,
     atualizarUsuario,
     excluirUsuario,
     listarUsuario,
-    buscarUsuario
+    buscarUsuario,
+    loginUsuario
 }

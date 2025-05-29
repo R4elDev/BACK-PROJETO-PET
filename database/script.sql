@@ -23,8 +23,10 @@ CREATE TABLE tbl_categoria(
 
 );
 
+SELECT * FROM tbl_cadastro_usuario;
+
 show tables;
 
-DROP TABLE tbl_cadastro_ususario;
+
 
 

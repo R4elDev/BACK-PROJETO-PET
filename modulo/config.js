@@ -38,6 +38,14 @@ const ERROR_NOT_FOUND = {
     message:"Não foram encontrados itens para retornar!!"
 }
 
+const WRONG_FIELDS = {
+    status: false,
+    status_code: 400,
+    message: "Existem campos errados ou não inseridos"
+}
+
+
+
 
 
 /************************** MENSAGENS DE SUCESSO ***************************/
@@ -69,6 +77,8 @@ const SUCCESS_UPDATED_ITEM = {
 
 
 
+
+
 module.exports = {
     ERROR_REQUIRED_FIELDS,
     SUCCESS_CREATED_ITEM,
@@ -77,5 +87,6 @@ module.exports = {
     ERROR_CONTENT_TYPE,
     ERROR_NOT_FOUND,
     SUCCESS_DELETED_ITEM,
-    SUCCESS_UPDATED_ITEM
+    SUCCESS_UPDATED_ITEM,
+    WRONG_FIELDS
 }
