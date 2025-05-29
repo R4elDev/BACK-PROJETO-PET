@@ -38,10 +38,10 @@ const ERROR_NOT_FOUND = {
     message:"Não foram encontrados itens para retornar!!"
 }
 
-const WRONG_FIELDS = {
+const ERROR_UNAUTHORIZED = {
     status: false,
-    status_code: 400,
-    message: "Existem campos errados ou não inseridos"
+    status_code: 401,
+    message: "Os campos iseridos não correspondem! Faça login para continuar!"
 }
 
 
@@ -88,5 +88,5 @@ module.exports = {
     ERROR_NOT_FOUND,
     SUCCESS_DELETED_ITEM,
     SUCCESS_UPDATED_ITEM,
-    WRONG_FIELDS
+    ERROR_UNAUTHORIZED
 }

@@ -28,7 +28,7 @@ const inserirUsuario = async function (usuario, contentType) {
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
 
-                if(usuario.data_nascimento == ''){
+                if(usuario.data_nascimento == '' || usuario.data_nascimento == 0){
                     usuario.data_nascimento = null
                 }
 
@@ -216,7 +216,7 @@ const loginUsuario = async function(email,senha,contentType){
                 let resultUsuario = await cadastroUsuarioDAO.selectLoginUsuario(email)
     
                 if(!resultUsuario || resultUsuario.senha !== senha){
-                    return MESSAGE.WRONG_FIELDS
+                    return MESSAGE.ERROR_UNAUTHORIZED
                 }else{
                     return{
                         status: true,

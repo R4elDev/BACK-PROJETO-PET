@@ -22,7 +22,7 @@ const insertUsuario = async function (usuario){
         '${usuario.endereco}',
         '${usuario.cnpj}',
         '${usuario.senha}',
-        ${usuario.data_nascimento},
+        ${usuario.data_nascimento ? `'${usuario.data_nascimento}'` : null},
         '${usuario.cpf}'
     );`
 
@@ -50,7 +50,7 @@ const updateUsuario = async function (usuario){
                                                  endereco = '${usuario.endereco}',
                                                  cnpj = '${usuario.cnpj}',
                                                  senha = '${usuario.senha}',
-                                                 data_nascimento = '${usuario.data_nascimento}',
+                                                 data_nascimento = ${usuario.data_nascimento},
                                                  cpf = '${usuario.cpf}'
                                                  where id = ${usuario.id}`
 
