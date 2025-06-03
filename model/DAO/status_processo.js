@@ -1,5 +1,5 @@
 /*****************************************************************************************
- * Objetivo --> Model responsavel pelo CRUD de dados referente a temperamento no Banco de dados
+ * Objetivo --> Model responsavel pelo CRUD de dados referente a status_processo no Banco de dados
  * Data --> 03/06/2025
  * Autor --> Israel
  * Versão --> 1.0
@@ -11,18 +11,18 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 // Função para inserir uma vacina no banco de dados
-const insertTemperamento = async function (temperamento){
+const insertStatusProcesso = async function (statusProcesso){
     try{
         
-        let sql = `INSERT INTO tbl_temperamento(nome_temperamento)
+        let sql = `INSERT INTO tbl_status_processo(status_processo)
     values(
-        '${temperamento.nome_temperamento}'
+        '${statusProcesso.statusProcesso}'
     );`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
         if(result){
-            let sqlSelect = `SELECT * FROM tbl_temperamento WHERE nome_temperamento = '${temperamento.nome_temperamento}' ORDER BY id DESC LIMIT 1`
+            let sqlSelect = `SELECT * FROM tbl_status_processo WHERE status_processo = '${statusProcesso.statusProcesso}' ORDER BY id DESC LIMIT 1`
 
             let scriptCriado = await prisma.$queryRawUnsafe(sqlSelect)
             return scriptCriado[0]
@@ -35,10 +35,10 @@ const insertTemperamento = async function (temperamento){
     }
 }
 
-const updateTemperamento = async function (temperamento){
+const updateStatusProcesso = async function (statusProcesso){
     try{
-        let sql = `UPDATE tbl_temperamento set nome_temperamento = '${temperamento.nome_temperamento}'
-                                                 where id = ${temperamento.id}`
+        let sql = `UPDATE tbl_status_processo set status_processo = '${statusProcesso.statusProcesso}'
+                                                 where id = ${statusProcesso.id}`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
@@ -52,11 +52,11 @@ const updateTemperamento = async function (temperamento){
     }
 }
 
-const deleteTemperamento = async function (id){
+const deleteStatusProcesso = async function (id){
     try{
-        let idTemperamento = id
+        let idStatusProcesso = id
 
-        let sql = `DELETE FROM tbl_temperamento WHERE id=${idTemperamento}`
+        let sql = `DELETE FROM tbl_status_processo WHERE id=${idStatusProcesso}`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
@@ -70,9 +70,9 @@ const deleteTemperamento = async function (id){
     }
 }
 
-const selectAllTemperamento = async function (){
+const selectAllStatusProcesso = async function (){
     try{
-        let sql = `SELECT * FROM tbl_temperamento`
+        let sql = `SELECT * FROM tbl_status_processo`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -88,11 +88,11 @@ const selectAllTemperamento = async function (){
     }
 }
 
-const selectByIdTemperamento= async function (id){
+const selectByIdStatusProcesso = async function (id){
     try{
-        let idTemperamento = id
+        let idStatusProcesso = id
 
-        let sql = `SELECT * FROM tbl_temperamento WHERE id=${idTemperamento}`
+        let sql = `SELECT * FROM tbl_status_processo WHERE id=${idStatusProcesso}`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -109,9 +109,9 @@ const selectByIdTemperamento= async function (id){
 
 
 module.exports = {
-   insertTemperamento,
-   updateTemperamento,
-   selectAllTemperamento,
-   selectByIdTemperamento,
-   deleteTemperamento
+   insertStatusProcesso,
+   updateStatusProcesso,
+   deleteStatusProcesso,
+   selectAllStatusProcesso,
+   selectByIdStatusProcesso
 }
