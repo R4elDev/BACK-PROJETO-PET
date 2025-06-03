@@ -28,148 +28,26 @@
 
  const express   = require('express')
  const cors      = require('cors')
- const bodyParser = require('body-parser')
+ const app       = express()
+ const swaggerUi = require('swagger-ui-express')
+ const swaggerDocs = require('./routes/swagger.json')
 
- // Import das controllers 
-const controllerUsuario = require('./controller/cadastroUsuario/controllerUsuario.js')
-const controllerCategoria = require('./controller/categoria/controllerCategoria.js')
+ app.use(cors())
+ app.use(express.json())
 
+ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
- // Estabelecendo o formato de dados que deverá chegar no BODY da requisição (POST ou PUT)
-const bodyParserJson = bodyParser.json()
-
-// Cria o objeto app para criar a api
-const app = express()
-
-app.use((request, response, next) =>{
-    response.header('Access-Control-Allow-Origin', '*')
-    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-
-    app.use(cors())
-    next()
-})
-
-// ********************** ENDPOINTS DA TABELA CADASTRO_USUARIO ***************************** //
-
-app.post('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request,response){
-
-    let contentType = request.headers['content-type']
-
-    let dadosBody = request.body
-
-    let resultUsuario = await controllerUsuario.inserirUsuario(dadosBody,contentType)
-
-    response.status(resultUsuario.status_code)
-    response.json(resultUsuario)
-})
-
-// ENDPOINT DE LOGIN USUARIO
-
-app.post('/v1/controle-pet/login', cors(),bodyParserJson, async function(request,response) {
-    let contentType = request.headers['content-type']
-    let { email , senha} = request.body
-    
-
-    let result = await controllerUsuario.loginUsuario(email,senha,contentType)
-
-    response.status(result.status_code)
-    response.json(result)
-})
-
-app.get('/v1/controle-pet/usuario',cors(),bodyParserJson,async function(request,response){
-    let resultUsuario = await controllerUsuario.listarUsuario()
-
-    response.status(resultUsuario.status_code)
-    response.json(resultUsuario)
-})
-
-app.get('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
-    let idUsuario = request.params.id
-
-    let resultUsuario = await controllerUsuario.buscarUsuario(idUsuario)
-
-    response.status(resultUsuario.status_code)
-    response.json(resultUsuario)
-})
-
-app.delete('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
-    let idUsuario = request.params.id
-
-    let resultUsuario = await controllerUsuario.excluirUsuario(idUsuario)
-
-    response.status(resultUsuario.status_code)
-    response.json(resultUsuario)
-})
-
-app.put('/v1/controle-pet/usuario/:id',cors(),bodyParserJson,async function(request,response){
-    let contentType = request.headers['content-type']
-
-    let idUsuario = request.params.id
-
-    let dadosBody = request.body
-
-    let resultUsuario = await controllerUsuario.atualizarUsuario(dadosBody,idUsuario,contentType)
-
-    response.status(resultUsuario.status_code)
-    response.json(resultUsuario)
-})
+ const routes = require('./routes/route.js')
 
 
-// ********************** ENDPOINTS DA TABELA CATEGORIA ***************************** //
-
-app.post('/v1/controle-pet/categoria',cors(),bodyParserJson,async function(request,response){
-
-    let contentType = request.headers['content-type']
-
-    let dadosBody = request.body
-
-    let resultCategoria = await controllerCategoria.inserirCategoria(dadosBody,contentType)
-
-    response.status(resultCategoria.status_code)
-    response.json(resultCategoria)
-})
-
-app.get('/v1/controle-pet/categoria',cors(),bodyParserJson,async function(request,response){
-    let resultCategoria = await controllerCategoria.listarCategoria()
-
-    response.status(resultCategoria.status_code)
-    response.json(resultCategoria)
-})
-
-app.get('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
-    let idCategoria = request.params.id
-
-    let resultCategoria = await controllerCategoria.buscarCategoria(idCategoria)
-
-    response.status(resultCategoria.status_code)
-    response.json(resultCategoria)
-})
-
-app.delete('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
-    let idCategoria = request.params.id
-
-    let resultCategoria = await controllerCategoria.excluirCategoria(idCategoria)
-
-    response.status(resultCategoria.status_code)
-    response.json(resultCategoria)
-})
-
-app.put('/v1/controle-pet/categoria/:id',cors(),bodyParserJson,async function(request,response){
-    let contentType = request.headers['content-type']
-
-    let idCategoria = request.params.id
-
-    let dadosBody = request.body
-
-    let resultCategoria = await controllerCategoria.atualizarCategoria(dadosBody,idCategoria,contentType)
-
-    response.status(resultCategoria.status_code)
-    response.json(resultCategoria)
-})
+ // Prefixo base da API
+app.use('/v1/controle-pet', routes)
 
 app.listen('8080',function(){
     console.log('API FUNCIONANDO AGUARDANDO REQUESIÇÕES CHEFE...')
 })
+
+
 
 
 

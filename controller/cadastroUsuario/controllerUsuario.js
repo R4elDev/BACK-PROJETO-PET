@@ -34,7 +34,13 @@ const inserirUsuario = async function (usuario, contentType) {
 
                 let resultUsuario = await cadastroUsuarioDAO.insertUsuario(usuario)
                 if(resultUsuario){
-                    return MESSAGE.SUCCESS_CREATED_ITEM
+                    const usuarioBuscado = await buscarUsuario(resultUsuario.id)
+                    return {
+                        message: MESSAGE.SUCCESS_CREATED_ITEM,
+                        usuarioBuscado
+                    };
+
+
                 }else{
                     return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
                 }
@@ -218,16 +224,10 @@ const loginUsuario = async function(email,senha,contentType){
                 if(!resultUsuario || resultUsuario.senha !== senha){
                     return MESSAGE.ERROR_UNAUTHORIZED
                 }else{
-                    return{
-                        status: true,
-                        status_code: 200,
-                        message: 'Login realizado com sucesso!',
-                        usuario: {
-                            id: resultUsuario.id,
-                            nome: resultUsuario.nome,
-                            email: resultUsuario.email
-                        }
-                    }
+                    return {
+                        message: MESSAGE.SUCCESS_CREATED_ITEM,
+                        resultUsuario
+                    };
                 }
             }
         }else{

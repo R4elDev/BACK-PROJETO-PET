@@ -3,7 +3,18 @@ show databases;
 
 use db_projeto_adocao_pets_bb;
 
-CREATE TABLE tbl_cadastro_usuario(
+show tables;
+
+drop table tbl_cadastro_ong;
+
+
+CREATE TABLE tbl_categoria(
+	id int not null primary key auto_increment,
+    nome_categoria VARCHAR(100)
+
+);
+
+CREATE TABLE tbl_usuario(
 	id int not null primary key auto_increment,
 	nome VARCHAR(100) not null,
     id_categoria int not null,
@@ -17,23 +28,15 @@ CREATE TABLE tbl_cadastro_usuario(
     FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id)
 );
 
-CREATE TABLE tbl_categoria(
-	id int not null primary key auto_increment,
-    nome_categoria VARCHAR(100)
-
-);
 
 
 
 
 
-DELETE FROM tbl_cadastro_usuario WHERE id= 12;
 
-INSERT INTO tbl_cadastro_usuario
 
-SELECT * FROM tbl_cadastro_usuario;
 
-show tables;
+
 
 
 

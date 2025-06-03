@@ -1,0 +1,465 @@
+{
+    "openapi": "3.0.4",
+    "info":{
+        "title": "API CONTROLE DE PET",
+        "description": "Essa API tem como objetivo o controle de doações",
+        "contact": {
+            "email": "raraeldev@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+
+    "servers": [
+        {
+            "url": "http://localhost:8080/v1/controle-pet",
+            "description": "ENDPOINT BASE"
+        }
+    ],
+    "paths": {
+        "/categoria":{
+            "post": {
+                "summary": "Cadastro de categora",
+                "description": "Essa rota será responsavel por cadastrar uma nova categoria",
+                "tags": ["Categoria"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema" :{
+                                "$ref": "#/components/schemas/Categoria"
+                            },
+                            "examples":{
+                                "Categoria":{
+                                    "value":{
+                                        "nome_categoria": "TUTOR"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "Existem campos obrigatórios que não foram preenchidos ou ultrapassaram a quantidade de caracteres. A requisição não pode ser realizada !!!"
+                    },
+                    "415":{
+                        "description": "Não foi possível processar a requisição pois o formato de dados encaminhado não é suportado pelo servidor.Favor encaminhar apenas JSON !!"
+                    },
+                    "201":{
+                        "description": "Item criado com sucesso !!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": " Buscar todas as categorias",
+                "summary": "Busca de todos as categorias",
+                "tags": ["Categoria"],
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categoria/{id}":{
+            "get":{
+                "description": "Busca de uma categoria pelo ID",
+                "summary": "Busca de um usuario pelo ID",
+                "tags": ["Categoria"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Numero do ID para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "description": "Deletar uma categoria pelo ID",
+                "summary": "Deletar uma categora pelo ID",
+                "tags": ["Categoria"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Numero do ID para deletar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                  "200":{
+                        "description": "Item deletado com sucesso !!!"
+                    },
+                    "404":{
+                        "description": "Não foram encontrados itens para retornar!!"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualizar um usuário",
+                "description": "Essa rota será responsável por atualizar uma categoria existente pelo ID.",
+                "tags": ["Categoria"],
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Número da categoria para atualizar",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "$ref": "#/components/schemas/Categoria"
+                        },
+                        "examples": {
+                        "Usuario": {
+                            "value": {
+                            "nome_categoria": "Tutor"
+                            }
+                        }
+                        }
+                    }
+                    }
+                },
+                "responses": {
+                    "200": {
+                    "description": "Usuário atualizado com sucesso",
+                    "content": {
+                        "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Categoria"
+                        }
+                        }
+                    }
+                    },
+                    "400": {
+                    "description": "Campos obrigatórios não preenchidos ou inválidos"
+                    },
+                    "404": {
+                    "description": "Usuário não encontrado"
+                    },
+                    "415": {
+                    "description": "Formato de dados não suportado. Envie em JSON"
+                    }
+                }
+            }
+        },
+        "/usuario" : {
+            "post": {
+                "summary": "Cadastro de usuario",
+                "description": "Essa rota será responsavel por cadastrar um novo usuario",
+                "tags": ["Usuario"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema" :{
+                                "$ref": "#/components/schemas/Usuario"
+                            },
+                            "examples":{
+                                "Usuario":{
+                                    "value":{
+                                        "nome": "Felipe Vieira",
+                                        "id_categoria": 1,
+                                        "email": "learsi@gmail.com",
+                                        "endereco": "Rua El Salvador nº70",
+                                        "cnpj": "",
+                                        "senha": "alice123",
+                                        "data_nascimento": "2007-05-01",
+                                        "cpf": "000.000.000-07"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "Existem campos obrigatórios que não foram preenchidos ou ultrapassaram a quantidade de caracteres. A requisição não pode ser realizada !!!"
+                    },
+                    "415":{
+                        "description": "Não foi possível processar a requisição pois o formato de dados encaminhado não é suportado pelo servidor.Favor encaminhar apenas JSON !!"
+                    },
+                    "201":{
+                        "description": "Item criado com sucesso !!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": " Buscar todos os usuarios",
+                "summary": "Busca de todos os usuarios",
+                "tags": ["Usuario"],
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/{id}":{
+            "get":{
+                "description": "Busca de um usuario pelo ID",
+                "summary": "Busca de um usuario pelo ID",
+                "tags": ["Usuario"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Numero do ID para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "description": "Deletar um usuario pelo ID",
+                "summary": "Deletar um usario pelo ID",
+                "tags": ["Usuario"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Numero do ID para deletar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                  "200":{
+                        "description": "Item deletado com sucesso !!!"
+                    },
+                    "404":{
+                        "description": "Não foram encontrados itens para retornar!!"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualizar um usuário",
+                "description": "Essa rota será responsável por atualizar um usuário existente pelo ID.",
+                "tags": ["Usuario"],
+                "parameters": [
+                    {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Número do ID para atualizar",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "$ref": "#/components/schemas/Usuario"
+                        },
+                        "examples": {
+                        "Usuario": {
+                            "value": {
+                            "nome": "Felipe Vieira",
+                            "id_categoria": 1,
+                            "email": "learsi@gmail.com",
+                            "endereco": "Rua El Salvador nº70",
+                            "cnpj": "",
+                            "senha": "alice123",
+                            "data_nascimento": "2007-05-01",
+                            "cpf": "000.000.000-07"
+                            }
+                        }
+                        }
+                    }
+                    }
+                },
+                "responses": {
+                    "200": {
+                    "description": "Usuário atualizado com sucesso",
+                    "content": {
+                        "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Usuario"
+                        }
+                        }
+                    }
+                    },
+                    "400": {
+                    "description": "Campos obrigatórios não preenchidos ou inválidos"
+                    },
+                    "404": {
+                    "description": "Usuário não encontrado"
+                    },
+                    "415": {
+                    "description": "Formato de dados não suportado. Envie em JSON"
+                    }
+                }
+            }
+        },
+        "/login" :{
+            "post": {
+                "summary": "Login de um usuario",
+                "description": "Essa rota será responsavel pelo login de um usuario",
+                "tags": ["Login"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema" :{
+                                "$ref": "#/components/schemas/Login"
+                            },
+                            "examples":{
+                                "Usuario":{
+                                    "value":{
+                                        "email": "learsi@gmail.com",
+                                        "senha": "alice123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+
+                    "401":{
+                        "description": "Os campos inseridos não correspondem! Faça login para continuar!"
+                    },
+                    "201":{
+                        "description": "Item criado com sucesso !!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Login"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components":{
+        "schemas": {
+            "Usuario":{
+                "type": "object",
+                "properties": {
+                    "nome":{
+                        "type": "string"
+                    },
+                    "id_categoria":{
+                        "type": "int"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "endereco":{
+                        "type":"string"
+                    },
+                    "cnpj":{
+                        "type":"string"
+                    },
+                    "senha":{
+                        "type":"string"
+                    },
+                    "data_nascimento":{
+                        "type": "string"
+                    },
+                    "cpf":{
+                        "type":"string"
+                    }
+                }
+            },
+            "Categoria":{
+                "type": "object",
+                "properties": {
+                    "nome_categoria":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Login":{
+                "type": "object",
+                "properties": {
+                    "email":{
+                        "type": "string"
+                    },
+                    "senha":{
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

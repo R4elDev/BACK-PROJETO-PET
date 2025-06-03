@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 const insertUsuario = async function (usuario){
     try{
         
-        let sql = `INSERT INTO tbl_cadastro_usuario(nome,id_categoria,email,endereco,cnpj,senha,data_nascimento,cpf)
+        let sql = `INSERT INTO tbl_usuario(nome,id_categoria,email,endereco,cnpj,senha,data_nascimento,cpf)
     values(
         '${usuario.nome}',
         '${usuario.id_categoria}',
@@ -29,7 +29,7 @@ const insertUsuario = async function (usuario){
         let result = await prisma.$executeRawUnsafe(sql)
 
         if(result){
-            let sqlSelect = `SELECT * FROM tbl_cadastro_usuario WHERE email = '${usuario.email}' ORDER BY id DESC LIMIT 1`
+            let sqlSelect = `SELECT * FROM tbl_usuario WHERE email = '${usuario.email}' ORDER BY id DESC LIMIT 1`
 
             let scriptCriado = await prisma.$queryRawUnsafe(sqlSelect)
             return scriptCriado[0]
@@ -44,7 +44,7 @@ const insertUsuario = async function (usuario){
 
 const updateUsuario = async function (usuario){
     try{
-        let sql = `UPDATE tbl_cadastro_usuario set nome = '${usuario.nome}',
+        let sql = `UPDATE tbl_usuario set nome = '${usuario.nome}',
                                                  id_categoria = '${usuario.id_categoria}',
                                                  email = '${usuario.email}'
                                                  endereco = '${usuario.endereco}',
@@ -70,7 +70,7 @@ const deleteUsuario = async function (id){
     try{
         let idUsuario = id
 
-        let sql = `DELETE FROM tbl_cadastro_usuario WHERE id=${idUsuario}`
+        let sql = `DELETE FROM tbl_usuario WHERE id=${idUsuario}`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
@@ -86,7 +86,7 @@ const deleteUsuario = async function (id){
 
 const selectAllUsuario = async function (){
     try{
-        let sql = `SELECT * FROM tbl_cadastro_usuario`
+        let sql = `SELECT * FROM tbl_usuario`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -106,7 +106,7 @@ const selectByIdUsuario = async function (id){
     try{
         let idUsuario = id
 
-        let sql = `SELECT * FROM tbl_cadastro_usuario WHERE id=${idUsuario}`
+        let sql = `SELECT * FROM tbl_usuario WHERE id=${idUsuario}`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -122,7 +122,7 @@ const selectByIdUsuario = async function (id){
 
 const selectLoginUsuario = async function (email) {
     try{
-        const sql = `SELECT * from tbl_cadastro_usuario WHERE email = '${email}'`
+        const sql = `SELECT * from tbl_usuario WHERE email = '${email}'`
 
         const result = await prisma.$queryRawUnsafe(sql)
         
