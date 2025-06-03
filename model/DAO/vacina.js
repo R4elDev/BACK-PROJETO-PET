@@ -112,5 +112,6 @@ module.exports = {
     insertVacina,
     updateVacina,
     selectAllVacina,
-    selectByIdVacina
+    selectByIdVacina,
+    deleteVacina
 }
