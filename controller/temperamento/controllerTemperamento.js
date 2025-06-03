@@ -7,18 +7,18 @@
 
 const MESSAGE = require('../../modulo/config.js')
 
-const vacinaDAO = require('../../model/DAO/vacina.js')
+const temperamentoDAO = require('../../model/DAO/temperamento.js')
 
-const inserirVacina = async function (vacina, contentType) {
+const inserirTemperamento = async function (temperamento, contentType) {
     try{
         if(contentType == 'application/json'){
             if(
-            vacina.nome_vacina     == undefined || vacina.nome_vacina.length > 150 
+            temperamento.nome_temperamento     == undefined || temperamento.nome_temperamento.length > 150 
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
-                let resultVacina = await vacinaDAO.insertVacina(vacina)
-                if(resultVacina){
+                let resultTemperamento = await temperamentoDAO.insertTemperamento(temperamento)
+                if(resultTemperamento){
                     return MESSAGE.SUCCESS_CREATED_ITEM
                 }else{
                     return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
@@ -33,28 +33,28 @@ const inserirVacina = async function (vacina, contentType) {
     }
 }
 
-const atualizarVacina = async function(vacina,id,contentType){
+const atualizarTemperamento = async function(temperamento,id,contentType){
     try{
         if(contentType == 'application/json'){
             if(
-                id                              == undefined || id                              == '' || id             == null || isNaN(id) || id         <= 0   ||
-                vacina.nome_vacina              == undefined ||  vacina.nome_vacina.length         > 150  
+                id                                          == undefined || id                              == '' || id             == null || isNaN(id) || id         <= 0   ||
+                temperamento.nome_temperamento              == undefined ||  temperamento.nome_temperamento.length         > 150  
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS
             }else{
                 
-                let resultVacina = await buscarVacina(parseInt(id))
+                let resultTemperamento = await buscarTemperamento(parseInt(id))
 
-                if(resultVacina.status_code == 200){
-                    vacina.id = parseInt(id)
-                    let result = await vacinaDAO.updateVacina(vacina)
+                if(resultTemperamento.status_code == 200){
+                    temperamento.id = parseInt(id)
+                    let result = await temperamentoDAO.updateTemperamento(temperamento)
 
                     if(result){
                         return MESSAGE.SUCCESS_UPDATED_ITEM
                     }else{
                         return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
                     }
-                }else if(resultVacina.status_code == 400){
+                }else if(resultTemperamento.status_code == 400){
                     return MESSAGE.ERROR_NOT_FOUND
                 }else{
                     return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
@@ -68,23 +68,23 @@ const atualizarVacina = async function(vacina,id,contentType){
     }
 }
 
-const excluirVacina = async function (id){
+const excluirTemperamento = async function (id){
     try{
         if(id == ''|| id == undefined || id == null || id == isNaN(id) || id <= 0){
             return MESSAGE.ERROR_REQUIRED_FIELDS
         }else{
-            let resultVacina = await buscarVacina(parseInt(id))
+            let resultTemperamento = await buscarTemperamento(parseInt(id))
 
-            if(resultVacina.status_code == 200){
+            if(resultTemperamento.status_code == 200){
 
-                let result = await vacinaDAO.deleteVacina(parseInt(id))
+                let result = await temperamentoDAO.deleteTemperamento(parseInt(id))
 
                 if(result){
                     return MESSAGE.SUCCESS_DELETED_ITEM
                 }else{
                     return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
                 }
-            }else if(resultCategoria.status_code == 404){
+            }else if(resultTemperamento.status_code == 404){
                 return MESSAGE.ERROR_NOT_FOUND
             }else{
                 return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
@@ -95,20 +95,20 @@ const excluirVacina = async function (id){
     }
 }
 
-const listarVacina = async function(){
+const listarTemperamento = async function(){
     try{
-        let dadosVacina = {}
+        let dadosTemperamento = {}
 
-        let resultVacina = await vacinaDAO.selectAllVacina()
+        let resultTemperamento = await temperamentoDAO.selectAllTemperamento()
 
-        if(resultVacina != false || typeof(resultVacina) == 'object'){
-            if(resultVacina.length > 0){
-                dadosVacina.status = true
-                dadosVacina.status_code = 200
-                dadosVacina.items = resultCategoria.length
-                dadosVacina.vacinas = resultVacina
+        if(resultTemperamento != false || typeof(resultTemperamento) == 'object'){
+            if(resultTemperamento.length > 0){
+                dadosTemperamento.status = true
+                dadosTemperamento.status_code = 200
+                dadosTemperamento.items = resultTemperamento.length
+                dadosTemperamento.vacinas = resultTemperamento
 
-                return dadosVacina
+                return resultTemperamento
             }else{
                 return MESSAGE.ERROR_NOT_FOUND
             }
@@ -122,23 +122,23 @@ const listarVacina = async function(){
 }
 
 
-const buscarVacina = async function(id){
+const buscarTemperamento = async function(id){
     try{
         
-        let idVacina = id
+        let idTemperamento = id
 
         if(id == '' || id == undefined || id == null || id == isNaN(id || id <= 0)){
             return MESSAGE.ERROR_REQUIRED_FIELDS
         }else{
-            let dadosVacina = {}
+            let dadosTemperamento = {}
 
-            let resultVacina = await vacinaDAO.selectByIdVacina(parseInt(idVacina))
+            let resultTemperamento = await temperamentoDAO.selectByIdTemperamento(parseInt(idTemperamento))
 
-            if(resultVacina != false || typeof(resultVacina) == 'object'){
-                if(resultVacina.length > 0){
-                    dadosVacina.status = true
-                    dadosVacina.status_code = 200
-                    dadosVacina.vacina = resultVacina
+            if(resultTemperamento != false || typeof(resultTemperamento) == 'object'){
+                if(resultTemperamento.length > 0){
+                    dadosTemperamento.status = true
+                    dadosTemperamento.status_code = 200
+                    dadosTemperamento.temperamento = resultTemperamento
 
                     return dadosVacina
                 }else{
@@ -154,9 +154,9 @@ const buscarVacina = async function(id){
 }
 
 module.exports = {
-    inserirVacina,
-    atualizarVacina,
-    excluirVacina,
-    listarVacina,
-    buscarVacina
+    inserirTemperamento,
+    atualizarTemperamento,
+    excluirTemperamento,
+    listarTemperamento,
+    buscarTemperamento
 }
