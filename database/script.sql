@@ -5,7 +5,54 @@ use db_projeto_adocao_pets_bb;
 
 show tables;
 
-drop table tbl_cadastro_ong;
+
+CREATE TABLE tbl_vacina (
+	id int not null primary key auto_increment,
+    nome_vacina varchar(150)
+);
+
+CREATE TABLE tbl_temperamento(
+	id int not null primary key auto_increment,
+    nome_temperamento varchar(150)
+
+);
+
+CREATE TABLE tbl_status_processo (
+	id int not null primary key auto_increment,
+    status_processo  varchar(150)
+);
+
+CREATE TABLE tbl_status_saude (
+	id int not null primary key auto_increment,
+	status_saude varchar(150)
+);
+
+
+
+CREATE TABLE tbl_animal (
+	id int not null primary key auto_increment,
+    nome varchar(100),
+    idade varchar(25),
+    sexo varchar(50),
+    raca varchar(200),
+    especie varchar(250),
+    foto varchar(10000),
+    localizacao varchar(250),
+    celular_responsavel varchar(20),
+    id_status_processo int not null,
+    id_temperamento int not null,
+    id_vacina int not null,
+    id_status_saude int not null,
+
+	FOREIGN KEY (id_status_processo) REFERENCES tbl_status_processo(id),
+    FOREIGN KEY (id_temperamento) REFERENCES tbl_temperamento(id),
+    FOREIGN KEY (id_vacina) REFERENCES tbl_vacina(id),
+    FOREIGN KEY (id_status_saude) REFERENCES tbl_status_saude(id)
+
+);
+
+
+
 
 
 CREATE TABLE tbl_categoria(
