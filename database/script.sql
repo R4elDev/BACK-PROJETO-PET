@@ -42,13 +42,17 @@ CREATE TABLE tbl_animal (
     id_temperamento int not null,
     id_vacina int not null,
     id_status_saude int not null,
+    id_usuario int not null,
 
 	FOREIGN KEY (id_status_processo) REFERENCES tbl_status_processo(id),
     FOREIGN KEY (id_temperamento) REFERENCES tbl_temperamento(id),
     FOREIGN KEY (id_vacina) REFERENCES tbl_vacina(id),
-    FOREIGN KEY (id_status_saude) REFERENCES tbl_status_saude(id)
-
+    FOREIGN KEY (id_status_saude) REFERENCES tbl_status_saude(id),
+	FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id)
+    
 );
+
+select * from tbl_animal;
 
 
 
@@ -72,18 +76,11 @@ CREATE TABLE tbl_usuario(
     cpf VARCHAR(20),
     
     FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id)
+	
 );
 
+SHOW TABLES;
 
+SHOW COLUMNS FROM tbl_animal;
 
-
-
-
-
-
-
-
-
-
-
-
+DROP TABLE tbl_animal;

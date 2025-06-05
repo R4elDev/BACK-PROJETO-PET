@@ -225,7 +225,7 @@ const loginUsuario = async function(email,senha,contentType){
                     return MESSAGE.ERROR_UNAUTHORIZED
                 }else{
                     return {
-                        message: MESSAGE.SUCCESS_CREATED_ITEM,
+                        message: MESSAGE.SUCCESS_LOGIN,
                         resultUsuario
                     };
                 }

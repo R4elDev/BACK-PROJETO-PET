@@ -43,8 +43,10 @@ router.post('/login', bodyParserJson, async (request, response) => {
     let { email, senha } = request.body
 
     let resultUsuario = await controllerUsuario.loginUsuario(email, senha, contentType)
+
+    console.log(resultUsuario)
     
-    response.status(resultUsuario.message.status_code)
+    response.status(resultUsuario.message.status_code || resultUsuario.status_code)
     response.json(resultUsuario)
 })
 
@@ -338,8 +340,9 @@ router.post('/animal', bodyParserJson, async (request, response) => {
 
     let resultAnimal = await controllerAnimal.inserirAnimal(dadosBody, contentType)
 
+    
 
-    response.status(resultAnimal.status_code)
+    response.status(resultAnimal.message.status_code)
     response.json(resultAnimal)
 })
 

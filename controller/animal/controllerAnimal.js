@@ -16,6 +16,7 @@ const controllerStatusProcesso = require('../status_processo/controllerStatusPro
 const controllerTemperamento = require('../temperamento/controllerTemperamento.js')
 const controllerVacina = require('../vacina/controllerVacina.js')
 const controllerStatusSaude = require('../statusSaude/controllerStatusSaude.js')
+const controllerUsuario = require('../cadastroUsuario/controllerUsuario.js')
 
 
 // Função para inserir um novo jogo
@@ -35,15 +36,23 @@ const inserirAnimal = async function(animal, contentType) {
                 animal.id_status_processo   == undefined ||            animal.id_status_processo      == '' ||            animal.id_status_processo      == null ||
                 animal.id_temperamento      == undefined ||            animal.id_temperamento         == '' ||            animal.id_temperamento         == null ||
                 animal.id_vacina            == undefined ||            animal.id_vacina               == '' ||            animal.id_vacina               == null ||
-                animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null 
+                animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null ||
+                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null 
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS // 400
             }else{
         
                 // Encaminha os dados do novo jogo para ser inserido no BD
                 let resultAnimal = await animalDAO.insertAnimal(animal)
+
+                
+
                 if(resultAnimal){
-                    return MESSAGE.SUCCESS_CREATED_ITEM // 201
+                    const animalBuscado = await buscarAnimal(resultAnimal.id)
+                    return {
+                            message: MESSAGE.SUCCESS_CREATED_ITEM,
+                            animalBuscado
+                    };
                 }else{
                     return MESSAGE.ERROR_INTERNAL_SERVER_MODEL // 500
                 }
@@ -72,7 +81,8 @@ const atualizarAnimal = async function(animal,id,contentType) {
                 animal.id_status_processo   == undefined ||            animal.id_status_processo      == '' ||            animal.id_status_processo      == null ||
                 animal.id_temperamento      == undefined ||            animal.id_temperamento         == '' ||            animal.id_temperamento         == null ||
                 animal.id_vacina            == undefined ||            animal.id_vacina               == '' ||            animal.id_vacina               == null ||
-                animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null 
+                animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null ||
+                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS // 400
             }else{
@@ -173,11 +183,15 @@ const listarAnimal = async function() {
                         let dadosStatusSaude = await controllerStatusSaude.buscarStatusSaude(itemAnimal.id_status_saude)
                         itemAnimal.status_saude = dadosStatusSaude.status_saude
                         delete itemAnimal.id_status_saude
+
+                        let dadosUsuario = await controllerUsuario.buscarUsuario(itemAnimal.id_usuario)
+                        itemAnimal.usuario = dadosUsuario.usuarios
+                        delete itemAnimal.id_usuario
                     arrayAnimais.push(itemAnimal)
                 }
 
                 //Adiciona o novo array de filmes no JSON para retornar ao APP
-                dadosAnimais.jogos = arrayAnimais
+                dadosAnimais.animais = arrayAnimais
 
                 return dadosAnimais // 200
             }else{
@@ -230,6 +244,10 @@ const buscarAnimal = async function(id) {
                         let dadosStatusSaude = await controllerStatusSaude.buscarStatusSaude(itemAnimal.id_status_saude)
                         itemAnimal.status_saude = dadosStatusSaude.status_saude
                         delete itemAnimal.id_status_saude
+
+                        let dadosUsuario = await controllerUsuario.buscarUsuario(itemAnimal.id_usuario)
+                        itemAnimal.usuario = dadosUsuario.usuarios
+                        delete itemAnimal.id_usuario
 
 
                         arrayAnimais.push(itemAnimal)

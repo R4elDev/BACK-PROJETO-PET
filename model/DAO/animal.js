@@ -16,7 +16,7 @@ const prisma = new PrismaClient()
 const insertAnimal = async function (animal) {
 
     try {
-        let sql = `insert into tbl_animal(nome,idade,sexo,raca,especie,foto,localizacao,celular_responsavel,id_status_processo,id_temperamento,id_vacina,id_status_saude)
+        let sql = `insert into tbl_animal(nome,idade,sexo,raca,especie,foto,localizacao,celular_responsavel,id_status_processo,id_temperamento,id_vacina,id_status_saude,id_usuario)
     values(
         '${animal.nome}',
         '${animal.idade}',
@@ -29,11 +29,16 @@ const insertAnimal = async function (animal) {
         '${animal.id_status_processo}',
         '${animal.id_temperamento}',
         '${animal.id_vacina}',
-        '${animal.id_status_saude}'
+        '${animal.id_status_saude}',
+        '${animal.id_usuario}'
     );`
+
+        
 
         // Executa o script SQL no BD e AGUARDA O retorno no BD
         let result = await prisma.$executeRawUnsafe(sql)
+
+        console.log(result)
 
         if (result) {
             let sqlSelect = `SELECT * FROM tbl_animal WHERE nome = '${animal.nome}' ORDER BY id DESC LIMIT 1` 
@@ -43,6 +48,7 @@ const insertAnimal = async function (animal) {
             return false
         }
     } catch (error) {
+    
         return false
     }
 }
@@ -61,7 +67,8 @@ const updateAnimal = async function (animal) {
                                          id_status_processo = '${animal.id_status_processo}',
                                          id_temperamento = '${animal.id_temperamento}',
                                          id_vacina = '${animal.id_vacina}',
-                                         id_status_saude = '${animal.id_status_saude}'
+                                         id_status_saude = '${animal.id_status_saude}',
+                                         id_usuario = '${animal.id_usuario}'
                                          where id = ${animal.id}`
 
         let result = await prisma.$executeRawUnsafe(sql)
@@ -72,7 +79,7 @@ const updateAnimal = async function (animal) {
             return false
         }
     }catch(error){
-
+        console.log(error)
         return false
     }
 }
