@@ -3,7 +3,6 @@ show databases;
 
 use db_projeto_adocao_pets_bb;
 
-show tables;
 
 
 CREATE TABLE tbl_vacina (
@@ -31,14 +30,14 @@ CREATE TABLE tbl_status_saude (
 
 CREATE TABLE tbl_animal (
 	id int not null primary key auto_increment,
-    nome varchar(100),
-    idade varchar(25),
-    sexo varchar(50),
-    raca varchar(200),
-    especie varchar(250),
-    foto varchar(10000),
-    localizacao varchar(250),
-    celular_responsavel varchar(20),
+    nome varchar(100) not null,
+    idade varchar(25) not null,
+    sexo varchar(50) not null,
+    raca varchar(200) not null,
+    especie varchar(250) not null,
+    foto varchar(10000) not null,
+    localizacao varchar(250) not null,
+    celular_responsavel varchar(20) not null,
     id_status_processo int not null,
     id_temperamento int not null,
     id_vacina int not null,
