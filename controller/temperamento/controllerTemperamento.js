@@ -108,7 +108,7 @@ const listarTemperamento = async function(){
                 dadosTemperamento.items = resultTemperamento.length
                 dadosTemperamento.vacinas = resultTemperamento
 
-                return resultTemperamento
+                return dadosTemperamento
             }else{
                 return MESSAGE.ERROR_NOT_FOUND
             }
@@ -140,7 +140,7 @@ const buscarTemperamento = async function(id){
                     dadosTemperamento.status_code = 200
                     dadosTemperamento.temperamento = resultTemperamento
 
-                    return dadosVacina
+                    return dadosTemperamento
                 }else{
                     return MESSAGE.ERROR_NOT_FOUND
                 }

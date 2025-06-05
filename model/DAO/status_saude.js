@@ -37,7 +37,7 @@ const insertStatusSaude = async function (statusSaude){
 
 const updateStatusSaude = async function (statusSaude){
     try{
-        let sql = `UPDATE tbl_status_saude set status_processo = '${statusSaude.status_saude}'
+        let sql = `UPDATE tbl_status_saude set status_saude = '${statusSaude.status_saude}'
                                                  where id = ${statusSaude.id}`
 
         let result = await prisma.$executeRawUnsafe(sql)

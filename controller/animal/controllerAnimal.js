@@ -167,8 +167,8 @@ const listarAnimal = async function() {
 
 
                         let dadosVacina = await controllerVacina.buscarVacina(itemAnimal.id_vacina)
-                        itemAnimal.animal = dadosVacina.id_vacina
-                        delete itemAnimal.id_animal
+                        itemAnimal.vacina = dadosVacina.vacina
+                        delete itemAnimal.id_vacina
 
                         let dadosStatusSaude = await controllerStatusSaude.buscarStatusSaude(itemAnimal.id_status_saude)
                         itemAnimal.status_saude = dadosStatusSaude.status_saude
@@ -224,8 +224,8 @@ const buscarAnimal = async function(id) {
 
 
                         let dadosVacina = await controllerVacina.buscarVacina(itemAnimal.id_vacina)
-                        itemAnimal.animal = dadosVacina.id_vacina
-                        delete itemAnimal.id_animal
+                        itemAnimal.vacina = dadosVacina.vacina
+                        delete itemAnimal.id_vacina
 
                         let dadosStatusSaude = await controllerStatusSaude.buscarStatusSaude(itemAnimal.id_status_saude)
                         itemAnimal.status_saude = dadosStatusSaude.status_saude

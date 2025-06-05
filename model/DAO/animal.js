@@ -121,7 +121,7 @@ const selectByIdAnimal = async function (id) {
     
     try{
         let idAnimal = id
-        let sql = `select * from tbl_jogo where id=${idAnimal}`
+        let sql = `select * from tbl_animal where id=${idAnimal}`
 
         let result = await prisma.$queryRawUnsafe(sql)
 

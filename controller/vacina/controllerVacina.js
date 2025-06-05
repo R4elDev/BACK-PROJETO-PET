@@ -105,7 +105,6 @@ const listarVacina = async function(){
             if(resultVacina.length > 0){
                 dadosVacina.status = true
                 dadosVacina.status_code = 200
-                dadosVacina.items = resultCategoria.length
                 dadosVacina.vacinas = resultVacina
 
                 return dadosVacina

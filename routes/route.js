@@ -141,13 +141,15 @@ router.post('/status-processo', bodyParserJson, async (request, response) => {
     let resultStatusProcesso = await controllerStatusProcesso.inserirStatusProcesso(dadosBody, contentType)
 
 
-    response.status(resultStatusProcesso.message.status_code)
+    response.status(resultStatusProcesso.status_code)
     response.json(resultStatusProcesso)
 })
 
 router.get('/status-processo', async (request, response) => {
     let resultStatusProcesso = await controllerStatusProcesso.listarStatusProcesso()
     
+    
+
     response.status(resultStatusProcesso.status_code)
     response.json(resultStatusProcesso)
 })
@@ -190,7 +192,7 @@ router.post('/temperamento', bodyParserJson, async (request, response) => {
     let resultTemperamento = await controllerTemperamento.inserirTemperamento(dadosBody, contentType)
 
 
-    response.status(resultTemperamento.message.status_code)
+    response.status(resultTemperamento.status_code)
     response.json(resultTemperamento)
 })
 
@@ -239,7 +241,7 @@ router.post('/vacina', bodyParserJson, async (request, response) => {
     let resultVacina = await controllerVacina.inserirVacina(dadosBody, contentType)
 
 
-    response.status(resultVacina.message.status_code)
+    response.status(resultVacina.status_code)
     response.json(resultVacina)
 })
 
@@ -288,7 +290,7 @@ router.post('/status-saude', bodyParserJson, async (request, response) => {
     let resultStatusSaude = await controllerStatusSaude.inserirStatusSaude(dadosBody, contentType)
 
 
-    response.status(resultStatusSaude.message.status_code)
+    response.status(resultStatusSaude.status_code)
     response.json(resultStatusSaude)
 })
 
@@ -337,7 +339,7 @@ router.post('/animal', bodyParserJson, async (request, response) => {
     let resultAnimal = await controllerAnimal.inserirAnimal(dadosBody, contentType)
 
 
-    response.status(resultAnimal.message.status_code)
+    response.status(resultAnimal.status_code)
     response.json(resultAnimal)
 })
 

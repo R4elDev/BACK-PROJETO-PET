@@ -37,7 +37,7 @@ const insertVacina = async function (vacina){
 
 const updateVacina = async function (vacina){
     try{
-        let sql = `UPDATE tbl_vacina set nome_temperamento = '${vacina.nome_vacina}'
+        let sql = `UPDATE tbl_vacina set nome_vacina = '${vacina.nome_vacina}'
                                                  where id = ${vacina.id}`
 
         let result = await prisma.$executeRawUnsafe(sql)
@@ -48,6 +48,7 @@ const updateVacina = async function (vacina){
             return false
         }
     }catch(error){
+        
         return false
     }
 }

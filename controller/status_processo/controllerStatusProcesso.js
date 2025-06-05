@@ -101,6 +101,8 @@ const listarStatusProcesso= async function(){
 
         let resultStatusProcesso = await statusProcessoDAO.selectAllStatusProcesso()
 
+        
+
         if(resultStatusProcesso != false || typeof(resultStatusProcesso) == 'object'){
             if(resultStatusProcesso.length > 0){
                 dadosStatusProcesso.status = true
@@ -108,7 +110,8 @@ const listarStatusProcesso= async function(){
                 dadosStatusProcesso.items = resultStatusProcesso.length
                 dadosStatusProcesso.status_processo = resultStatusProcesso
 
-                return resultStatusProcesso
+                
+                return dadosStatusProcesso
             }else{
                 return MESSAGE.ERROR_NOT_FOUND
             }
@@ -116,7 +119,7 @@ const listarStatusProcesso= async function(){
             return MESSAGE.ERROR_INTERNAL_SERVER_MODEL
         }
     }catch(error){
-        
+        console.log(error)
         return MESSAGE.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
