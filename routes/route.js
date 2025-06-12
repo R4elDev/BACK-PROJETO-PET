@@ -19,7 +19,7 @@ const controllerTemperamento = require('../controller/temperamento/controllerTem
 const controllerVacina = require('../controller/vacina/controllerVacina.js')
 const controllerStatusSaude = require('../controller/statusSaude/controllerStatusSaude.js')
 const controllerAnimal = require('../controller/animal/controllerAnimal.js')
-
+const controllerSexo = require('../controller/sexo/controllerSexo.js')
 
 const bodyParserJson = bodyParser.json()
 
@@ -332,7 +332,7 @@ router.put('/status-saude/:id', bodyParserJson, async (request, response) => {
     response.json(resultStatusSaude)
 })
 
-// ********************** ENDPOINTS DA TABELA STATUS_PROCESSO ***************************** //
+// ********************** ENDPOINTS DA TABELA ANIMAL ***************************** //
 
 router.post('/animal', bodyParserJson, async (request, response) => {
     let contentType = request.headers['content-type']
@@ -381,6 +381,56 @@ router.put('/animal/:id', bodyParserJson, async (request, response) => {
     response.status(resultAnimal.status_code)
     response.json(resultAnimal)
 })
+
+// ********************** ENDPOINTS DA TABELA SEXO ***************************** //
+
+router.post('/sexo', bodyParserJson, async (request, response) => {
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultSexo = await controllerSexo.inserirSexo(dadosBody, contentType)
+
+
+    response.status(resultSexo.status_code)
+    response.json(resultSexo)
+})
+
+router.get('/sexo', async (request, response) => {
+    let resultSexo = await controllerSexo.listarSexo()
+    
+    response.status(resultSexo.status_code)
+    response.json(resultSexo)
+})
+
+router.get('/sexo/:id', async (request, response) => {
+    let id = request.params.id
+
+    let resultSexo = await controllerSexo.buscarSexo(id)
+    
+    response.status(resultSexo.status_code)
+    response.json(resultSexo)
+})
+
+router.delete('/sexo/:id', async (request, response) => {
+    let id = request.params.id
+
+    let resultSexo = await controllerSexo.excluirSexo(id)
+    
+    response.status(resultSexo.status_code)
+    response.json(resultSexo)
+})
+
+router.put('/sexo/:id', bodyParserJson, async (request, response) => {
+    let contentType = request.headers['content-type']
+    let id = request.params.id
+    let dadosBody = request.body
+
+    let resultSexo = await controllerSexo.atualizarSexo(dadosBody, id, contentType)
+    
+    response.status(resultSexo.status_code)
+    response.json(resultSexo)
+})
+
 
 
 module.exports = router

@@ -4,6 +4,18 @@ show databases;
 use db_projeto_adocao_pets_bb;
 
 
+CREATE TABLE tbl_sexo(
+    id int not null primary key auto_increment,
+    sexo varchar(45) not null
+);
+
+
+CREATE TABLE tbl_categoria(
+	id int not null primary key auto_increment,
+    nome_categoria VARCHAR(100)
+
+);
+
 
 CREATE TABLE tbl_vacina (
 	id int not null primary key auto_increment,
@@ -32,8 +44,7 @@ CREATE TABLE tbl_animal (
 	id int not null primary key auto_increment,
     nome varchar(100) not null,
     idade varchar(25) not null,
-    sexo varchar(50) not null,
-    raca varchar(200) not null,
+    raca varchar(200) ,
     especie varchar(250) not null,
     foto varchar(10000) not null,
     localizacao varchar(250) not null,
@@ -43,26 +54,19 @@ CREATE TABLE tbl_animal (
     id_vacina int not null,
     id_status_saude int not null,
     id_usuario int not null,
+    id_sexo int not null,
 
 	FOREIGN KEY (id_status_processo) REFERENCES tbl_status_processo(id),
     FOREIGN KEY (id_temperamento) REFERENCES tbl_temperamento(id),
     FOREIGN KEY (id_vacina) REFERENCES tbl_vacina(id),
     FOREIGN KEY (id_status_saude) REFERENCES tbl_status_saude(id),
-	FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id)
+	FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id),
+    FOREIGN KEY (id_sexo) REFERENCES tbl_sexo(id)
     
-);
-
-select * from tbl_animal;
-
-
-
-
-
-CREATE TABLE tbl_categoria(
-	id int not null primary key auto_increment,
-    nome_categoria VARCHAR(100)
 
 );
+
+
 
 CREATE TABLE tbl_usuario(
 	id int not null primary key auto_increment,

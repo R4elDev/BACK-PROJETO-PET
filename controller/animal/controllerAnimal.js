@@ -17,6 +17,7 @@ const controllerTemperamento = require('../temperamento/controllerTemperamento.j
 const controllerVacina = require('../vacina/controllerVacina.js')
 const controllerStatusSaude = require('../statusSaude/controllerStatusSaude.js')
 const controllerUsuario = require('../cadastroUsuario/controllerUsuario.js')
+const controlleSexo = require('../sexo/controllerSexo.js')
 
 
 // Função para inserir um novo jogo
@@ -27,8 +28,7 @@ const inserirAnimal = async function(animal, contentType) {
             if(
                 animal.nome                 == undefined ||            animal.nome                    == '' ||            animal.nome                    == null || animal.nome.length                     > 100    ||
                 animal.idade                == undefined ||            animal.idade                   == '' ||            animal.idade                   == null || animal.idade.length                    > 25     ||
-                animal.sexo                 == undefined ||            animal.sexo                    == '' ||            animal.sexo                    == null || animal.sexo.length                     > 50     ||
-                animal.raca                 == undefined ||            animal.raca                    == '' ||            animal.raca                    == null || animal.raca.length                     > 200    ||
+                animal.raca                 == undefined ||            animal.raca.length             > 200 ||
                 animal.especie              == undefined ||            animal.especie                 == '' ||            animal.especie                 == null || animal.especie.length                  > 250    ||
                 animal.foto                 == undefined ||            animal.foto                    == '' ||            animal.foto                    == null || animal.foto.length                     > 10000  ||
                 animal.localizacao          == undefined ||            animal.localizacao             == '' ||            animal.localizacao             == null || animal.localizacao.length              > 250    ||
@@ -37,7 +37,8 @@ const inserirAnimal = async function(animal, contentType) {
                 animal.id_temperamento      == undefined ||            animal.id_temperamento         == '' ||            animal.id_temperamento         == null ||
                 animal.id_vacina            == undefined ||            animal.id_vacina               == '' ||            animal.id_vacina               == null ||
                 animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null ||
-                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null 
+                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null ||
+                animal.id_sexo              == undefined ||            animal.id_sexo                 == '' ||            animal.id_sexo                 == null
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS // 400
             }else{
@@ -72,8 +73,7 @@ const atualizarAnimal = async function(animal,id,contentType) {
                 id                          == undefined ||            id  ==  ''    ||  id  == null  || isNaN(id)  || id <= 0 ||
                 animal.nome                 == undefined ||            animal.nome                    == '' ||            animal.nome                    == null || animal.nome.length                     > 100    ||
                 animal.idade                == undefined ||            animal.idade                   == '' ||            animal.idade                   == null || animal.idade.length                    > 25     ||
-                animal.sexo                 == undefined ||            animal.sexo                    == '' ||            animal.sexo                    == null || animal.sexo.length                     > 50     ||
-                animal.raca                 == undefined ||            animal.raca                    == '' ||            animal.raca                    == null || animal.raca.length                     > 200    ||
+                animal.raca                 == undefined ||            animal.raca.length             > 200 ||
                 animal.especie              == undefined ||            animal.especie                 == '' ||            animal.especie                 == null || animal.especie.length                  > 250    ||
                 animal.foto                 == undefined ||            animal.foto                    == '' ||            animal.foto                    == null || animal.foto.length                     > 10000  ||
                 animal.localizacao          == undefined ||            animal.localizacao             == '' ||            animal.localizacao             == null || animal.localizacao.length              > 250    ||
@@ -82,7 +82,8 @@ const atualizarAnimal = async function(animal,id,contentType) {
                 animal.id_temperamento      == undefined ||            animal.id_temperamento         == '' ||            animal.id_temperamento         == null ||
                 animal.id_vacina            == undefined ||            animal.id_vacina               == '' ||            animal.id_vacina               == null ||
                 animal.id_status_saude      == undefined ||            animal.id_status_saude         == '' ||            animal.id_status_saude         == null ||
-                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null
+                animal.id_usuario           == undefined ||            animal.id_usuario              == '' ||            animal.id_usuario              == null ||
+                animal.id_sexo              == undefined ||            animal.id_sexo                 == '' ||            animal.id_sexo                 == null
             ){
                 return MESSAGE.ERROR_REQUIRED_FIELDS // 400
             }else{
@@ -187,6 +188,11 @@ const listarAnimal = async function() {
                         let dadosUsuario = await controllerUsuario.buscarUsuario(itemAnimal.id_usuario)
                         itemAnimal.usuario = dadosUsuario.usuarios
                         delete itemAnimal.id_usuario
+
+
+                        let dadosSexo = await controlleSexo.buscarSexo(itemAnimal.id_sexo)
+                        itemAnimal.sexo = dadosSexo.sexo
+                        delete itemAnimal.id_sexo
                     arrayAnimais.push(itemAnimal)
                 }
 
@@ -248,6 +254,10 @@ const buscarAnimal = async function(id) {
                         let dadosUsuario = await controllerUsuario.buscarUsuario(itemAnimal.id_usuario)
                         itemAnimal.usuario = dadosUsuario.usuarios
                         delete itemAnimal.id_usuario
+
+                        let dadosSexo = await controlleSexo.buscarSexo(itemAnimal.id_sexo)
+                        itemAnimal.sexo = dadosSexo.sexo
+                        delete itemAnimal.id_sexo
 
 
                         arrayAnimais.push(itemAnimal)

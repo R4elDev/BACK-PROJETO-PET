@@ -16,11 +16,10 @@ const prisma = new PrismaClient()
 const insertAnimal = async function (animal) {
 
     try {
-        let sql = `insert into tbl_animal(nome,idade,sexo,raca,especie,foto,localizacao,celular_responsavel,id_status_processo,id_temperamento,id_vacina,id_status_saude,id_usuario)
+        let sql = `insert into tbl_animal(nome,idade,raca,especie,foto,localizacao,celular_responsavel,id_status_processo,id_temperamento,id_vacina,id_status_saude,id_usuario,id_sexo)
     values(
         '${animal.nome}',
         '${animal.idade}',
-        '${animal.sexo}',
         '${animal.raca}',
         '${animal.especie}',
         '${animal.foto}',
@@ -30,7 +29,8 @@ const insertAnimal = async function (animal) {
         '${animal.id_temperamento}',
         '${animal.id_vacina}',
         '${animal.id_status_saude}',
-        '${animal.id_usuario}'
+        '${animal.id_usuario}',
+        '${animal.id_sexo}'
     );`
 
         
@@ -57,8 +57,7 @@ const insertAnimal = async function (animal) {
 const updateAnimal = async function (animal) {
     try{
         let sql = `update tbl_animal set nome = '${animal.nome}', 
-                                         idade = '${animal.idade}',
-                                         sexo = '${animal.sexo}', 
+                                         idade = '${animal.idade}', 
                                          raca = '${animal.raca}', 
                                          especie = '${animal.especie}', 
                                          foto = '${animal.foto}', 
@@ -68,7 +67,8 @@ const updateAnimal = async function (animal) {
                                          id_temperamento = '${animal.id_temperamento}',
                                          id_vacina = '${animal.id_vacina}',
                                          id_status_saude = '${animal.id_status_saude}',
-                                         id_usuario = '${animal.id_usuario}'
+                                         id_usuario = '${animal.id_usuario}',
+                                         id_sexo    = '${animal.id_sexo}',
                                          where id = ${animal.id}`
 
         let result = await prisma.$executeRawUnsafe(sql)
