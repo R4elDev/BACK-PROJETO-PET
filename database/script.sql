@@ -1,4 +1,6 @@
 CREATE DATABASE db_projeto_adocao_pets_bb;
+show tables;
+
 show databases;
 
 use db_projeto_adocao_pets_bb;
@@ -38,7 +40,20 @@ CREATE TABLE tbl_status_saude (
 	status_saude varchar(150)
 );
 
-
+CREATE TABLE tbl_usuario(
+	id int not null primary key auto_increment,
+	nome VARCHAR(100) not null,
+    id_categoria int not null,
+    email VARCHAR(150) not null,
+    endereco VARCHAR(200),
+    cnpj VARCHAR(45),
+    senha VARCHAR(45) not null,
+    data_nascimento DATE,
+    cpf VARCHAR(20),
+    
+    FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id)
+	
+);
 
 CREATE TABLE tbl_animal (
 	id int not null primary key auto_increment,
@@ -68,23 +83,8 @@ CREATE TABLE tbl_animal (
 
 
 
-CREATE TABLE tbl_usuario(
-	id int not null primary key auto_increment,
-	nome VARCHAR(100) not null,
-    id_categoria int not null,
-    email VARCHAR(150) not null,
-    endereco VARCHAR(200),
-    cnpj VARCHAR(45),
-    senha VARCHAR(45) not null,
-    data_nascimento DATE,
-    cpf VARCHAR(20),
-    
-    FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id)
-	
-);
+
 
 SHOW TABLES;
 
 SHOW COLUMNS FROM tbl_animal;
-
-DROP TABLE tbl_animal;

@@ -106,7 +106,7 @@ const listarTemperamento = async function(){
                 dadosTemperamento.status = true
                 dadosTemperamento.status_code = 200
                 dadosTemperamento.items = resultTemperamento.length
-                dadosTemperamento.vacinas = resultTemperamento
+                dadosTemperamento.temperamentos = resultTemperamento
 
                 return dadosTemperamento
             }else{
